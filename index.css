@@ -1,0 +1,903 @@
+/* ===================== RESET ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===================== BODY ===================== */
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #111 0%, #000 70%);
+  color: #eaeaea;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 40px;
+  overflow-x: hidden;
+}
+
+/* ===================== HERO ===================== */
+.hero {
+  margin-bottom: 70px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-family: Georgia, serif;
+  font-size: 80px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: -2.5px;
+  line-height: 1.05;
+}
+
+.hero h2 {
+  margin-top: 12px;
+  font-size: 13px;
+  letter-spacing: 2.5px;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+}
+
+/* ===================== GRID ===================== */
+.cards-container {
+  display: grid;
+
+  /* column proportions */
+  grid-template-columns: 1fr 1fr 1fr;
+
+  /* 🔑 explicit rows - Compact Strip Layout */
+  grid-template-rows: 160px 180px;
+
+  gap: 28px;
+
+  grid-template-areas:
+    "about projects contact"
+    "work  projects contact";
+
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+
+
+/* ===================== GRID AREAS ===================== */
+.about {
+  grid-area: about;
+}
+
+.work {
+  padding-bottom: 30px;
+  grid-area: work;
+}
+
+.projects {
+  padding-top: 34px;
+  padding-bottom: 34px;
+  grid-area: projects;
+  /* RESTORED: Spans both rows */
+  justify-content: flex-end !important;
+  /* Force Content to Bottom */
+}
+
+
+.contact {
+  padding-top: 30px;
+  grid-area: contact;
+  /* RESTORED: Spans both rows */
+  justify-content: flex-end !important;
+  /* Force Content to Bottom */
+}
+
+/* ===================== CARD BASE ===================== */
+a.card {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  /* Ensure it keeps flex behavior */
+}
+
+.card {
+  position: relative;
+  padding: 26px;
+  border-radius: 22px;
+
+  background: linear-gradient(180deg,
+      rgba(22, 22, 22, 0.9),
+      rgba(15, 15, 15, 0.95));
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+}
+
+/* ===================== CARD CONTENT ===================== */
+.card-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===================== TYPOGRAPHY ===================== */
+.card h3 {
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 18px;
+}
+
+.card p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+}
+
+/* ===================== ICONS ===================== */
+.icon {
+  font-size: 24px;
+  opacity: 0.8;
+}
+
+/* ===================== IMAGES ===================== */
+.card-img {
+  position: absolute;
+  z-index: 1;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* ABOUT */
+.about .avatar-img {
+  width: 160px;
+  bottom: -6px;
+  right: -6px;
+  opacity: 0.95;
+}
+
+/* WORK */
+.work .work-img {
+  width: 260px;
+  top: -10px;
+  right: -60px;
+  opacity: 0.85;
+
+  mask-image: linear-gradient(to left, black 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to left, black 50%, transparent 100%);
+}
+
+/* CONTACT */
+/* CONTACT BACKGROUND VIDEO */
+.card-bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.6;
+  /* Slight transparency so text stands out */
+  mix-blend-mode: normal;
+  /* Reset blend mode */
+  border-radius: 22px;
+  /* Match card radius */
+}
+
+.contact .card-content {
+  z-index: 2;
+  /* Ensure text is above video */
+  position: relative;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  /* Better readability */
+}
+
+/* ===================== PROJECT ICONS ===================== */
+.projects .project-icons {
+  position: absolute;
+  bottom: 34%;
+  /* Remove centering transform as we want it to flow */
+  left: 0;
+  width: 100%;
+  display: flex;
+  gap: 18px;
+  /* Marquee Logic */
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.project-icons .proj-placeholder {
+  flex-shrink: 0;
+  /* Prevent squishing */
+  animation: scroll 10s linear infinite;
+}
+
+/* Pause on hover for satisfying interaction */
+.projects .project-icons:hover .proj-placeholder {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    /* Move by half the total width (since we have 2 sets) + gap adjustment */
+    /* Calculation: 5 icons * (64px width + 18px gap) = 410px roughly */
+    /* Best approach is to animate the container or use a wrapper, but animating children works if uniform. */
+    /* Let's try animating the strip using a wrapper approach in CSS if possible, but given structure, translateX on children is tricky without a specific wrapper. */
+    /* Actually, better to simply animate the transform of a wrapper if I had one. */
+    /* Since I didn't add a wrapper in HTML, I should probably adjust the HTML to have a wrapper track, OR just animate the translateX of the whole group if possible. */
+    /* But wait, .project-icons IS the wrapper. */
+    transform: translateX(calc(-50% - 9px));
+    /* Move by half height? No, half width. */
+  }
+}
+
+/* REVISE: It's better to animate a wrapper div inside .project-icons. 
+   Since I cannot easily add a wrapper without another HTML edit, I will use a different trick:
+   Animate the first element margins? No.
+   Actually, the simplest way with current HTML is to make .project-icons the track?
+   Let's treat .project-icons as the track and overflow via the card.
+*/
+
+
+.proj-placeholder {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  transition: transform 0.25s ease;
+}
+
+.proj-placeholder:hover {
+  transform: translateY(-6px) scale(1.05);
+}
+
+/* PROJECT COLORS */
+.p1 {
+  background: linear-gradient(135deg, #FF9966, #FF5E62);
+}
+
+.p2 {
+  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+}
+
+.p3 {
+  background: linear-gradient(135deg, #84fab0, #8fd3f4);
+}
+
+.p4 {
+  background: linear-gradient(135deg, #fccb90, #d57eeb);
+}
+
+/* ===================== HOVER IMAGE EFFECTS ===================== */
+.card:hover .avatar-img {
+  transform: scale(1.08);
+}
+
+.card:hover .work-img {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.card:hover .bubbles-img {
+  transform: translateY(-6px);
+}
+
+/* ===================== CHAIN TOGGLE ===================== */
+.chain-container {
+  position: fixed;
+  top: 0;
+  right: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: grab;
+  z-index: 1000;
+}
+
+.chain {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.chain span {
+  width: 6px;
+  height: 6px;
+  background: #aaa;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.chain-ball {
+  width: 18px;
+  height: 18px;
+  background: #ffe3c4;
+  border-radius: 50%;
+  margin-top: 8px;
+  box-shadow: 0 0 15px rgba(255, 227, 196, 0.6);
+}
+
+/* ===================== STARS BACKGROUND ===================== */
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 1.5px;
+  height: 1.5px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: twinkle 2s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+}
+
+/* ===================== LIGHT MODE ===================== */
+body.light {
+  background: radial-gradient(circle at top, #f5f5f5 0%, #e6e6e6 70%);
+  color: #111;
+}
+
+body.light .card {
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.9),
+      rgba(230, 230, 230, 0.95));
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light .card p {
+  color: #444;
+}
+
+
+/* ===================== CONTACT PAGE ===================== */
+.contact-page-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.contact-header {
+  text-align: center;
+}
+
+.contact-header h1 {
+  font-family: Georgia, serif;
+  font-size: 56px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.contact-header h2 {
+  font-family: Georgia, serif;
+  font-size: 32px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+}
+
+/* LINKS LIST */
+.links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.link-card {
+  text-decoration: none;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.link-card:hover {
+  transform: translateY(-2px);
+}
+
+.link-card label {
+  display: block;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  margin-left: 4px;
+}
+
+.fake-input {
+  background: rgba(22, 22, 22, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: system-ui, sans-serif;
+  transition: all 0.2s ease;
+}
+
+.link-card:hover .fake-input {
+  background: rgba(30, 30, 30, 0.8);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.fake-input .icon {
+  font-size: 20px;
+  opacity: 0.8;
+}
+
+.fake-input .text {
+  flex-grow: 1;
+  font-size: 16px;
+}
+
+.fake-input .arrow {
+  opacity: 0.5;
+  transition: transform 0.2s ease;
+}
+
+.link-card:hover .arrow {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+/* BACK LINK */
+.back-home {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.back-home a {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+
+/* ===================== SIDE NAV ===================== */
+.side-nav {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 12px 8px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.3s ease;
+}
+
+.side-nav:hover {
+  transform: translateY(-50%) scale(1.1);
+  background: rgba(15, 15, 15, 0.95);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.nav-item {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-item:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.2);
+  /* Expand */
+  animation: jiggle 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes jiggle {
+  0% {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.2) rotate(-5deg);
+  }
+
+  50% {
+    transform: scale(1.2) rotate(5deg);
+  }
+
+  75% {
+    transform: scale(1.2) rotate(-3deg);
+  }
+
+  100% {
+    transform: scale(1.2) rotate(0);
+  }
+}
+
+.nav-item.active {
+  background: #ffdab9;
+  /* Peach color from image */
+  color: #111;
+  box-shadow: 0 0 15px rgba(255, 218, 185, 0.3);
+}
+
+
+/* ===================== ABOUT PAGE ===================== */
+.about-page-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 60px 20px 100px;
+  /* Added bottom padding for scroll */
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.about-header {
+  text-align: center;
+}
+
+.about-header h1 {
+  font-family: Georgia, serif;
+  font-size: 56px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.about-header h2 {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* CONTENT SECTIONS */
+.about-content h3 {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  color: #fff;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.text-block p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 24px;
+}
+
+/* HIGHLIGHTS */
+.highlight {
+  color: #fff;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.highlight.orange {
+  color: #ffdab9;
+  border-color: #ffdab9;
+}
+
+.highlight.green {
+  background: rgba(0, 255, 127, 0.1);
+  color: #00ff7f;
+  padding: 0 4px;
+  border-radius: 4px;
+  border: none;
+}
+
+/* LISTS (Specs & Stack) */
+.specs-block,
+.stack-block {
+  margin-top: 40px;
+}
+
+.specs-block ul,
+.stack-block ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.specs-block li,
+.stack-block li {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 12px;
+  position: relative;
+  padding-left: 20px;
+}
+
+.specs-block li::before,
+.stack-block li::before {
+  content: "•";
+  color: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  left: 0;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.specs-block strong,
+.stack-block strong {
+  color: #fff;
+  font-weight: 500;
+  margin-right: 6px;
+}
+
+
+/* ===================== WORK PAGE ===================== */
+.work-page-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 60px 20px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.work-header {
+  text-align: center;
+}
+
+.work-header h1 {
+  font-family: Georgia, serif;
+  font-size: 56px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.work-header h2 {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* WORK ITEMS */
+.work-item {
+  margin-bottom: 60px;
+}
+
+/* COMPANY PILL */
+.company-pill {
+  display: inline-block;
+  padding: 8px 20px;
+  background: #333;
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  border-radius: 50px;
+  margin-bottom: 24px;
+}
+
+.gradient-pill {
+  background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+  /* Red-Orange gradient like reference */
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+/* ROLE & DATE */
+.work-item h3 {
+  font-family: system-ui, sans-serif;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.work-item .date {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+}
+
+/* LIST */
+.work-item ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.work-item li {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 16px;
+  position: relative;
+  padding-left: 24px;
+  line-height: 1.6;
+}
+
+.work-item li::before {
+  content: "•";
+  color: #fff;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 20px;
+}
+
+
+/* ===================== PROJECTS PAGE ===================== */
+.projects-page-container {
+  max-width: 600px;
+  /* Reduced from 800px */
+  margin: 0 auto;
+  padding: 60px 20px 100px;
+}
+
+.projects-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.projects-header h1 {
+  font-family: Georgia, serif;
+  font-size: 48px;
+  /* Reduced */
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.projects-header h2 {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* STACK CONTAINER */
+.projects-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  /* Reduced gap */
+  padding-bottom: 80px;
+}
+
+/* STICKY CARD */
+.project-card {
+  position: sticky;
+  top: 100px;
+  /* Adjusted overlap start */
+  height: 200px;
+  /* Reduced from 280px */
+  border-radius: 20px;
+  padding: 30px;
+  /* Reduced padding */
+  display: flex;
+  align-items: center;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+/* Dynamic Top Offsets for nicer stacking if we wanted precise control, 
+   but standard sticky works well if we just let them pile up. 
+   To make them actually stack *visually* like the image, distinct top values help.
+*/
+.p-card-1 {
+  top: 120px;
+  background: linear-gradient(135deg, #FF9966, #FF5E62);
+  color: #111;
+}
+
+.p-card-2 {
+  top: 155px;
+  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+  color: #111;
+}
+
+.p-card-3 {
+  top: 190px;
+  background: linear-gradient(135deg, #84fab0, #8fd3f4);
+  color: #111;
+}
+
+.p-card-4 {
+  top: 225px;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: #111;
+}
+
+/* CARD CONTENT */
+.project-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  z-index: 2;
+}
+
+.project-icon {
+  font-size: 40px;
+  /* Reduced from 60px */
+  background: rgba(255, 255, 255, 0.2);
+  width: 70px;
+  /* Reduced from 100px */
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.project-info h3 {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  /* Reduced from 32px */
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.project-info p {
+  font-size: 15px;
+  /* Reduced from 18px */
+  opacity: 0.9;
+  max-width: 400px;
+  line-height: 1.5;
+}
