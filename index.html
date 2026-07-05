@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mayank Anand · Portfolio</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+
+  <!-- STAR BACKGROUND -->
+  <div class="stars"></div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <h1>Mayank Anand</h1>
+    <h2>B.Tech Undergraduate At IIIT DELHI | Computer Science & Biosciences</h2>
+    <div class="hero-actions">
+      <a href="https://drive.google.com/file/d/1yx0PE7vmmW3zTfFl4wRfau_AlRazwfqI/view?usp=sharing" target="_blank" class="resume-btn">
+        <span>My Resume</span>
+        <span class="btn-icon">📄</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- CARDS GRID -->
+  <main class="cards-container">
+
+    <!-- ABOUT -->
+    <a href="about.html" class="card about">
+      <div class="card-content">
+        <span class="icon">🥷👀</span>
+        <h3>About</h3>
+        <p>A bit about myself.</p>
+      </div>
+      <img src="assets/about.png" alt="Illustration of developer avatar" class="card-img avatar-img" />
+    </a>
+
+    <!-- WORK EXPERIENCE -->
+    <a href="work.html" class="card work">
+      <div class="card-content">
+        <span class="icon">💼</span>
+        <h3>Work Experience</h3>
+        <p>My journey as an undergraduate B.Tech student.</p>
+      </div>
+      <img src="assets/work.png" alt="Workspace illustration" class="card-img work-img" />
+    </a>
+
+    <!-- PROJECTS -->
+    <a href="projects.html" class="card projects">
+      <div class="card-content">
+        <span class="icon">📁</span>
+        <h3>Projects</h3>
+        <p>A selection of my backend and frontend work.</p>
+      </div>
+
+      <!-- Terminal Mockup -->
+      <div class="project-terminal">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="terminal-title">mayank@iiitd:~/projects</span>
+        </div>
+        <div class="terminal-body">
+          <div class="code-line"><span class="c-keyword">const</span> <span class="c-var">model</span> = <span
+              class="c-keyword">new</span> <span class="c-class">BioSynthAI</span>();</div>
+          <div class="code-line"><span class="c-keyword">await</span> <span class="c-var">model</span>.<span
+              class="c-func">matchGenetics</span>(<span class="c-str">"DNA_SEQ"</span>);</div>
+          <div class="code-line c-output">&gt; Match: 99.4% [Optimal]</div>
+          <div class="code-line"><span class="c-prompt">mayank$</span> <span class="cursor-block"></span></div>
+        </div>
+      </div>
+
+      <!-- Moving Tech Badges Marquee -->
+      <div class="project-marquee">
+        <div class="marquee-track">
+          <!-- Set 1 -->
+          <div class="tech-badge"><span class="tech-dot cpp"></span>C++</div>
+          <div class="tech-badge"><span class="tech-dot python"></span>Python</div>
+          <div class="tech-badge"><span class="tech-dot javascript"></span>JavaScript</div>
+          <div class="tech-badge"><span class="tech-dot react"></span>React</div>
+          <div class="tech-badge"><span class="tech-dot fastapi"></span>FastAPI</div>
+          <div class="tech-badge"><span class="tech-dot mongodb"></span>MongoDB</div>
+          <!-- Set 2 (Duplicate for Loop) -->
+          <div class="tech-badge"><span class="tech-dot cpp"></span>C++</div>
+          <div class="tech-badge"><span class="tech-dot python"></span>Python</div>
+          <div class="tech-badge"><span class="tech-dot javascript"></span>JavaScript</div>
+          <div class="tech-badge"><span class="tech-dot react"></span>React</div>
+          <div class="tech-badge"><span class="tech-dot fastapi"></span>FastAPI</div>
+          <div class="tech-badge"><span class="tech-dot mongodb"></span>MongoDB</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- CONTACT -->
+    <a href="contact.html" class="card contact">
+      <div class="card-content">
+        <span class="icon">➢</span>
+        <h3>Contact</h3>
+        <p>Email, LinkedIn, Github...</p>
+      </div>
+
+      <video autoplay loop muted playsinline class="card-bg-video">
+        <source src="assets/Untitled video - Made with Clipchamp.mp4" type="video/mp4" />
+      </video>
+    </a>
+
+  </main>
+
+  <!-- THEME TOGGLE CHAIN -->
+  <div class="chain-container">
+    <div class="chain">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="chain-ball"></div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="index.js"></script>
+
+</body>
+
+</html>
