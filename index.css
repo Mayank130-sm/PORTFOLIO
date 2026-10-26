@@ -1254,30 +1254,36 @@ body.light .project-card:hover {
 /* Accent variables and sticky offsets per card */
 .p-card-1 {
   top: 120px;
-  --accent-color: #ff5e62;
-  --accent-rgb: 255, 94, 98;
+  --accent-color: #f472b6;
+  --accent-rgb: 244, 114, 182;
 }
 
 .p-card-2 {
   top: 155px;
-  --accent-color: #b19ffb;
-  --accent-rgb: 177, 159, 251;
+  --accent-color: #ff5e62;
+  --accent-rgb: 255, 94, 98;
 }
 
 .p-card-3 {
   top: 190px;
-  --accent-color: #4ade80;
-  --accent-rgb: 74, 222, 128;
+  --accent-color: #b19ffb;
+  --accent-rgb: 177, 159, 251;
 }
 
 .p-card-4 {
   top: 225px;
-  --accent-color: #38bdf8;
-  --accent-rgb: 56, 189, 248;
+  --accent-color: #4ade80;
+  --accent-rgb: 74, 222, 128;
 }
 
 .p-card-5 {
   top: 260px;
+  --accent-color: #38bdf8;
+  --accent-rgb: 56, 189, 248;
+}
+
+.p-card-6 {
+  top: 295px;
   --accent-color: #fb923c;
   --accent-rgb: 251, 146, 60;
 }
